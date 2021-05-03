@@ -21,7 +21,6 @@ package org.sonar.php.tree.symbols;
 
 import com.google.common.annotations.Beta;
 import com.google.common.base.Preconditions;
-import com.google.common.collect.ImmutableList;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Optional;
@@ -69,8 +68,8 @@ public class SymbolImpl implements Symbol {
   }
 
   @Override
-  public ImmutableList<SyntaxToken> modifiers() {
-    return ImmutableList.copyOf(modifiers);
+  public List<SyntaxToken> modifiers() {
+    return modifiers;
   }
 
   @Override
