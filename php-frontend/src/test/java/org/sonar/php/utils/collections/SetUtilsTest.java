@@ -19,6 +19,7 @@
  */
 package org.sonar.php.utils.collections;
 
+import java.util.Collections;
 import java.util.Objects;
 import java.util.Set;
 import org.junit.Test;
@@ -78,6 +79,33 @@ public class SetUtilsTest {
         new SomeType("value11"), new SomeType("value12"),
         new SomeType("value13"), new SomeType("value14")
       );
+  }
+
+  @Test
+  public void test_no_difference() {
+    Set<SomeType> set1 = SetUtils.immutableSetOf(new SomeType("A"), new SomeType("B"), new SomeType("C"));
+    Set<SomeType> set2 = SetUtils.immutableSetOf(new SomeType("A"), new SomeType("B"), new SomeType("C"));
+
+    assertThat(SetUtils.difference(set1, set2))
+      .isEqualTo(Collections.emptySet());
+  }
+
+  @Test
+  public void test_no_difference_on_left() {
+    Set<SomeType> set1 = SetUtils.immutableSetOf(new SomeType("A"), new SomeType("B"), new SomeType("C"));
+    Set<SomeType> set2 = SetUtils.immutableSetOf(new SomeType("A"), new SomeType("B"), new SomeType("C"), new SomeType("D"), new SomeType("E"));
+
+    assertThat(SetUtils.difference(set1, set2))
+      .isEqualTo(Collections.emptySet());
+  }
+
+  @Test
+  public void test_difference() {
+    Set<SomeType> set1 = SetUtils.immutableSetOf(new SomeType("A"), new SomeType("B"), new SomeType("C"));
+    Set<SomeType> set2 = SetUtils.immutableSetOf(new SomeType("A"), new SomeType("B"), new SomeType("C"), new SomeType("D"), new SomeType("E"));
+
+    assertThat(SetUtils.difference(set2, set1))
+      .containsExactlyInAnyOrder(new SomeType("D"), new SomeType("E"));
   }
 
   private static class SomeType {

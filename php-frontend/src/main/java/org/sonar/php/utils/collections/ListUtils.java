@@ -19,7 +19,9 @@
  */
 package org.sonar.php.utils.collections;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -33,5 +35,11 @@ public class ListUtils {
     return Arrays.stream(lists)
       .flatMap(List::stream)
       .collect(Collectors.toList());
+  }
+
+  public static <T> List<T> reverse(List<T> list) {
+    List<T> reversed = new ArrayList<>(list);
+    Collections.reverse(reversed);
+    return reversed;
   }
 }
